@@ -16,5 +16,5 @@
     "./**/*.js",
     "./**/*.jsx",
     ".react-router/types/**/*"
-  ]
+, "postcss.config.js"  ]
 }

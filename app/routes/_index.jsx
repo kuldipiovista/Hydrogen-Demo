@@ -2,6 +2,44 @@ import {Await, useLoaderData, Link} from 'react-router';
 import {Suspense} from 'react';
 import {Image} from '@shopify/hydrogen';
 import {ProductItem} from '~/components/ProductItem';
+import {HeroSlider} from '~/components/HeroSlider';
+
+// Import both desktop and mobile images
+import hero1 from '~/assets/hero1.jpg';
+import hero1Mobile from '~/assets/hero1-mob.jpg';
+
+import hero2 from '~/assets/hero2.jpg';
+import hero2Mobile from '~/assets/hero2-mob.jpg';
+
+import hero3 from '~/assets/hero3.jpg';
+import hero3Mobile from '~/assets/hero3-mob.jpg';
+
+const homeSlides = [
+  {
+    heading: 'Exclusive collection for everyone',
+    subheading: 'In this season, find the best 🔥',
+    buttonText: 'Explore now',
+    imageDesktop: hero1,
+    imageMobile: hero1Mobile,
+    url: '/search'
+  },
+  {
+    heading: 'Exclusive collection for everyone',
+    subheading: 'In this season, find the best 🔥',
+    buttonText: 'Explore now',
+    imageDesktop: hero2,
+    imageMobile: hero2Mobile,
+    url: '/search'
+  },
+  {
+    heading: 'Exclusive collection for everyone',
+    subheading: 'In this season, find the best 🔥',
+    buttonText: 'Explore now',
+    imageDesktop: hero3,
+    imageMobile: hero3Mobile,
+    url: '/search'
+  },
+];
 
 /**
  * @type {MetaFunction}
@@ -64,6 +102,7 @@ export default function Homepage() {
   const data = useLoaderData();
   return (
     <div className="home">
+      <HeroSlider slides={homeSlides} />
       <FeaturedCollection collection={data.featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} />
     </div>

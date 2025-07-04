@@ -11,6 +11,43 @@ import {ProductPrice} from '~/components/ProductPrice';
 import {ProductImage} from '~/components/ProductImage';
 import {ProductForm} from '~/components/ProductForm';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
+import {HeroSlider} from '~/components/HeroSlider';
+// Import both desktop and mobile images
+import hero1 from '~/assets/hero1.jpg';
+import hero1Mobile from '~/assets/hero1-mob.jpg';
+
+import hero2 from '~/assets/hero2.jpg';
+import hero2Mobile from '~/assets/hero2-mob.jpg';
+
+import hero3 from '~/assets/hero3.jpg';
+import hero3Mobile from '~/assets/hero3-mob.jpg';
+
+const productSlides = [
+  {
+    heading: 'Exclusive collection for everyone pdp',
+    subheading: 'In this season, find the best 🔥 pdp',
+    buttonText: 'Explore now pdp',
+    imageDesktop: hero1,
+    imageMobile: hero1Mobile,
+    url: '/search'
+  },
+  {
+    heading: 'Exclusive collection for everyone pdp',
+    subheading: 'In this season, find the best 🔥 pdp',
+    buttonText: 'Explore now pdp',
+    imageDesktop: hero2,
+    imageMobile: hero2Mobile,
+    url: '/search'
+  },
+  {
+    heading: 'Exclusive collection for everyone pdp',
+    subheading: 'In this season, find the best 🔥 pdp',
+    buttonText: 'Explore now pdp',
+    imageDesktop: hero3,
+    imageMobile: hero3Mobile,
+    url: '/search'
+  },
+];
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -106,43 +143,48 @@ export default function Product() {
   const {title, descriptionHtml} = product;
 
   return (
-    <div className="product">
-      <ProductImage image={selectedVariant?.image} />
-      <div className="product-main">
-        <h1>{title}</h1>
-        <ProductPrice
-          price={selectedVariant?.price}
-          compareAtPrice={selectedVariant?.compareAtPrice}
+    <div className="custom-product-wrapper">
+      
+      <div className="product">
+        <ProductImage image={selectedVariant?.image} />
+        <div className="product-main">
+          <h1>{title}</h1>
+          <ProductPrice
+            price={selectedVariant?.price}
+            compareAtPrice={selectedVariant?.compareAtPrice}
+          />
+          <br />
+          <ProductForm
+            productOptions={productOptions}
+            selectedVariant={selectedVariant}
+          />
+          <br />
+          <br />
+          <p>
+            <strong>Description</strong>
+          </p>
+          <br />
+          <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
+          <br />
+        </div>
+        <Analytics.ProductView
+          data={{
+            products: [
+              {
+                id: product.id,
+                title: product.title,
+                price: selectedVariant?.price.amount || '0',
+                vendor: product.vendor,
+                variantId: selectedVariant?.id || '',
+                variantTitle: selectedVariant?.title || '',
+                quantity: 1,
+              },
+            ],
+          }}
         />
-        <br />
-        <ProductForm
-          productOptions={productOptions}
-          selectedVariant={selectedVariant}
-        />
-        <br />
-        <br />
-        <p>
-          <strong>Description</strong>
-        </p>
-        <br />
-        <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
-        <br />
       </div>
-      <Analytics.ProductView
-        data={{
-          products: [
-            {
-              id: product.id,
-              title: product.title,
-              price: selectedVariant?.price.amount || '0',
-              vendor: product.vendor,
-              variantId: selectedVariant?.id || '',
-              variantTitle: selectedVariant?.title || '',
-              quantity: 1,
-            },
-          ],
-        }}
-      />
+
+      <HeroSlider slides={productSlides} />
     </div>
   );
 }
